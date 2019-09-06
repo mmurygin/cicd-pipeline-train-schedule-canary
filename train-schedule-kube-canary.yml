@@ -6,6 +6,7 @@ spec:
   type: LoadBalancer
   selector:
     app: train-schedule
+    target: canary
   ports:
   - protocol: TCP
     port: 80
@@ -22,13 +23,13 @@ spec:
   replicas: 2
   selector:
     matchLabels:
+      target: canary
       app: train-schedule
-      target: stable
   template:
     metadata:
       labels:
+        target: canary
         app: train-schedule
-        target: stable
     spec:
       containers:
       - name: train-schedule
